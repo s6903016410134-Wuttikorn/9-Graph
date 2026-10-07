@@ -1,130 +1,139 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# 1. สร้าง Figure และ Subplots ขนาด 3x3
-fig, axs = plt.subplots(3, 3, figsize=(18, 14))
+# สุ่มข้อมูลตัวอย่างให้ใกล้เคียงกับภาพมากที่สุด
+np.random.seed(42)
 
-# ปรับขนาดฟอนต์ลงเหลือ 18 และขยับตำแหน่งแนวตั้งขึ้นไปที่ y=0.98
-fig.suptitle("My First Class", fontsize=18, fontweight='bold', color='navy', y=0.98)
-
-# ข้อมูลตัวอย่าง
-x = np.array([1, 2, 3, 4, 5])
-y = np.array([3, 8, 1, 10, 5])
-y2 = np.array([6, 2, 7, 11, 2])
+# 1. กำหนดขนาดหน้าจอ และ Title หลัก
+fig, axs = plt.subplots(3, 3, figsize=(16, 14))
+fig.suptitle("My First Chart", fontsize=20, fontweight='bold', y=0.96)
 
 # -------------------------------------------------------------
-# 1. Matplotlib Markers
+# Row 1, Col 1: Scatter Plot
 # -------------------------------------------------------------
-axs[0, 0].plot(x, y, marker='o', ms=8, mec='red', mfc='yellow', label='Marker Points')
-axs[0, 0].set_title("1. Matplotlib Markers", fontsize=11, fontweight='bold', pad=8)
-axs[0, 0].set_xlabel("X Axis (Index)", fontsize=9)
-axs[0, 0].set_ylabel("Y Axis (Values)", fontsize=9)
-axs[0, 0].legend(fontsize=8, loc='upper left')
+x1 = np.random.randint(0, 100, 100)
+y1 = np.random.randint(0, 100, 100)
+colors1 = y1
+sc1 = axs[0, 0].scatter(x1, y1, c=colors1, cmap='Spectral', s=20)
+axs[0, 0].set_title("Scatter Plot", fontsize=10)
+axs[0, 0].set_xlabel("X value", fontsize=8)
+axs[0, 0].set_ylabel("Y value", fontsize=8)
+cbar1 = fig.colorbar(sc1, ax=axs[0, 0], fraction=0.046, pad=0.04)
+cbar1.ax.tick_params(labelsize=8)
 
 # -------------------------------------------------------------
-# 2. Matplotlib Line
+# Row 1, Col 2: Bubble Chart
 # -------------------------------------------------------------
-axs[0, 1].plot(x, y, color='r', linestyle='-', linewidth=2, label='Solid Line')
-axs[0, 1].plot(x, y2, color='g', linestyle=':', linewidth=2, label='Dotted Line')
-axs[0, 1].set_title("2. Matplotlib Line", fontsize=11, fontweight='bold', pad=8)
-axs[0, 1].set_xlabel("X Axis (Time)", fontsize=9)
-axs[0, 1].set_ylabel("Y Axis (Score)", fontsize=9)
-axs[0, 1].legend(fontsize=8, loc='upper left')
+x2 = np.random.randint(0, 100, 80)
+y2 = np.random.randint(0, 100, 80)
+sizes2 = np.random.randint(20, 200, 80)
+colors2 = np.random.randint(0, 100, 80)
+sc2 = axs[0, 1].scatter(x2, y2, s=sizes2, c=colors2, cmap='turbo_r', alpha=0.7)
+axs[0, 1].set_title("Bubble Chart", fontsize=10)
+axs[0, 1].set_xlabel("X value", fontsize=8)
+axs[0, 1].set_ylabel("Y value", fontsize=8)
+cbar2 = fig.colorbar(sc2, ax=axs[0, 1], fraction=0.046, pad=0.04)
+cbar2.ax.tick_params(labelsize=8)
 
 # -------------------------------------------------------------
-# 3. Matplotlib Labels
+# Row 1, Col 3: Horizontal Bar Chart
 # -------------------------------------------------------------
-font_title = {'family': 'sans-serif', 'color': 'blue', 'size': 11, 'weight': 'bold'}
-font_axis = {'family': 'sans-serif', 'color': 'darkred', 'size': 9}
-axs[0, 2].plot(x, y, 'b-o', label='Sample Series')
-axs[0, 2].set_title("3. Matplotlib Labels", fontdict=font_title, pad=8)
-axs[0, 2].set_xlabel("X Axis (Categories)", fontdict=font_axis)
-axs[0, 2].set_ylabel("Y Axis (Measurements)", fontdict=font_axis)
-axs[0, 2].legend(fontsize=8, loc='upper right')
+categories = ['A', 'B', 'C', 'D']
+values = [10, 1, 8, 2]
+axs[0, 2].barh(categories, values, color='steelblue')
+axs[0, 2].set_title("Horizontal Bar Chart", fontsize=10)
+axs[0, 2].set_xlabel("Value", fontsize=8)
+axs[0, 2].set_ylabel("Category", fontsize=8)
 
 # -------------------------------------------------------------
-# 4. Matplotlib Grid
+# Row 2, Col 1: Sports Match Data
 # -------------------------------------------------------------
-axs[1, 0].plot(x, y, color='orange', marker='s', label='Grid Data')
-axs[1, 0].set_title("4. Matplotlib Grid", fontsize=11, fontweight='bold', pad=8)
-axs[1, 0].set_xlabel("X Axis", fontsize=9)
-axs[1, 0].set_ylabel("Y Axis", fontsize=9)
-axs[1, 0].grid(color='gray', linestyle='--', linewidth=0.7)
-axs[1, 0].legend(fontsize=8, loc='upper left')
+minutes = np.array([100, 200, 300, 400, 500])
+energy = np.array([10, 20, 30, 40, 50])
+axs[1, 0].plot(minutes, energy, color='steelblue', label='Energy')
+axs[1, 0].set_title("Sports Match Data", fontsize=10)
+axs[1, 0].set_xlabel("Minutes", fontsize=8)
+axs[1, 0].set_ylabel("Energy", fontsize=8)
 
 # -------------------------------------------------------------
-# 5. Matplotlib Subplot
+# Row 2, Col 2: Two Line Chart
 # -------------------------------------------------------------
-axs[1, 1].plot(x, y, 'g-^', label='Group A')
-axs[1, 1].plot(x, y2, 'b-s', label='Group B')
-axs[1, 1].set_title("5. Matplotlib Subplot", fontsize=11, fontweight='bold', pad=8)
-axs[1, 1].set_xlabel("X Axis (Group Index)", fontsize=9)
-axs[1, 1].set_ylabel("Y Axis (Performance)", fontsize=9)
+x_two = np.array([0, 1, 2, 3, 4])
+line1 = np.array([1, 4, 1, 5, 3])
+line2 = np.array([1, 3, 5, 1, 6])
+axs[1, 1].plot(x_two, line1, color='steelblue', label='Line 1')
+axs[1, 1].plot(x_two, line2, color='darkorange', label='Line 2')
+axs[1, 1].set_title("Two Line Chart", fontsize=10)
+axs[1, 1].set_xlabel("X", fontsize=8)
+axs[1, 1].set_ylabel("Y", fontsize=8)
 axs[1, 1].legend(fontsize=8, loc='upper left')
 
 # -------------------------------------------------------------
-# 6. Matplotlib Scatter
+# Row 2, Col 3: Line Chart with Markers
 # -------------------------------------------------------------
-x_sc = np.array([5, 7, 8, 7, 2, 17, 2, 9, 4, 11, 12, 9, 6])
-y_sc = np.array([99, 86, 87, 88, 111, 86, 103, 87, 94, 78, 77, 85, 86])
-axs[1, 2].scatter(x_sc, y_sc, color='hotpink', label='Car Speed')
-axs[1, 2].set_title("6. Matplotlib Scatter", fontsize=11, fontweight='bold', pad=8)
-axs[1, 2].set_xlabel("X Axis (Age of Car)", fontsize=9)
-axs[1, 2].set_ylabel("Y Axis (Speed)", fontsize=9)
-axs[1, 2].legend(fontsize=8, loc='upper right')
+x_m = np.array([0.5, 1.0, 1.5, 2.0, 2.5])
+y_m = np.array([2, 5, 3, 1, 6])
+axs[1, 2].plot(x_m, y_m, color='steelblue', zorder=1)
+axs[1, 2].scatter(x_m, y_m, color='darkred', s=25, zorder=2, label='Markers')
+axs[1, 2].set_title("Line Chart with Markers", fontsize=10)
+axs[1, 2].set_xlabel("X", fontsize=8)
+axs[1, 2].set_ylabel("Y", fontsize=8)
 
 # -------------------------------------------------------------
-# 7. Matplotlib Bars
+# Row 3, Col 1: Histogram
 # -------------------------------------------------------------
-categories = np.array(["A", "B", "C", "D"])
-values = np.array([3, 8, 1, 10])
-axs[2, 0].bar(categories, values, color="#4CAF50", label='Sales Vol')
-axs[2, 0].set_title("7. Matplotlib Bars", fontsize=11, fontweight='bold', pad=8)
-axs[2, 0].set_xlabel("X Axis (Categories)", fontsize=9)
-axs[2, 0].set_ylabel("Y Axis (Sales)", fontsize=9)
-axs[2, 0].legend(fontsize=8, loc='upper left')
+hist_data = np.random.normal(50, 10, 1000)
+axs[2, 0].hist(hist_data, bins=15, color='steelblue', edgecolor='black')
+axs[2, 0].set_title("Histogram", fontsize=10)
+axs[2, 0].set_xlabel("Value", fontsize=8)
+axs[2, 0].set_ylabel("Frequency", fontsize=8)
 
 # -------------------------------------------------------------
-# 8. Matplotlib Histograms
+# Row 3, Col 2: Pie Chart (Exploded)
 # -------------------------------------------------------------
-np.random.seed(42)
-x_hist = np.random.normal(170, 10, 250)
-axs[2, 1].hist(x_hist, bins=15, color='teal', edgecolor='black', label='Height Dist')
-axs[2, 1].set_title("8. Matplotlib Histograms", fontsize=11, fontweight='bold', pad=8)
-axs[2, 1].set_xlabel("X Axis (Height Range cm)", fontsize=9)
-axs[2, 1].set_ylabel("Y Axis (Frequency)", fontsize=9)
-axs[2, 1].legend(fontsize=8, loc='upper right')
+pie_labels = ["Apples", "Bananas", "Cherries", "Dates"]
+pie_shares = [35, 25, 20, 20]
+pie_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+explode_pie = [0.1, 0, 0, 0]
 
-# -------------------------------------------------------------
-# 9. Matplotlib Pie Charts
-# -------------------------------------------------------------
-mylabels = ["Apples", "Bananas", "Cherries", "Dates"]
-y_pie = np.array([35, 25, 25, 15])
-myexplode = [0.08, 0, 0, 0]
-wedges, texts, autotexts = axs[2, 2].pie(
-    y_pie, 
-    explode=myexplode, 
-    autopct='%1.1f%%', 
-    shadow=True, 
-    startangle=90,
-    textprops=dict(fontsize=8)
+axs[2, 1].pie(
+    pie_shares, 
+    labels=pie_labels, 
+    explode=explode_pie, 
+    colors=pie_colors,
+    startangle=90, 
+    textprops={'fontsize': 8}
 )
-axs[2, 2].set_title("9. Matplotlib Pie Charts", fontsize=11, fontweight='bold', pad=8)
-axs[2, 2].set_xlabel("X Axis (Category Share)", fontsize=9)
-axs[2, 2].set_ylabel("Y Axis (Percentage)", fontsize=9)
-axs[2, 2].legend(wedges, mylabels, title="Fruits", loc="center left", bbox_to_anchor=(1, 0, 0.5, 1), fontsize=8)
+axs[2, 1].set_title("Pie Chart (Exploded)", fontsize=10)
+axs[2, 1].set_xlabel("Fruit", fontsize=8)
+axs[2, 1].set_ylabel("Share (%)", fontsize=8)
 
 # -------------------------------------------------------------
-# 2. ปรับแต่งเว้นระยะขอบบนลงมา (top=0.88) ไม่ให้ชน Title หลัก
+# Row 3, Col 3: Pie Chart (Legend)
+# -------------------------------------------------------------
+axs[2, 2].pie(
+    pie_shares, 
+    autopct='%1.0f%%', 
+    colors=pie_colors, 
+    startangle=90, 
+    textprops={'fontsize': 8}
+)
+axs[2, 2].set_title("Pie Chart (Legend)", fontsize=10)
+axs[2, 2].set_xlabel("Fruit", fontsize=8)
+axs[2, 2].set_ylabel("Share (%)", fontsize=8)
+axs[2, 2].legend(pie_labels, title="Fruit Stuffs", loc="upper right", bbox_to_anchor=(1.35, 1.0), fontsize=7, title_fontsize=8)
+
+# -------------------------------------------------------------
+# จัดระเบียบ Spacing ไม่ให้ตัวอักษรชนกัน
 # -------------------------------------------------------------
 plt.subplots_adjust(
     left=0.06,
     right=0.92,
-    top=0.88,      # ดึงขอบบนลงมาจากเดิม เพื่อเว้นที่ให้ "My First Class"
+    top=0.90,
     bottom=0.06,
-    wspace=0.35,
-    hspace=0.50
+    wspace=0.40,
+    hspace=0.45
 )
 
-# แสดงผล GUI
+# แสดงผลกราฟ
 plt.show()
