@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-# สุ่มข้อมูลตัวอย่างให้ใกล้เคียงกับภาพมากที่สุด
+# สุ่มข้อมูลตัวอย่าง
 np.random.seed(42)
 
 # 1. กำหนดขนาดหน้าจอ และ Title หลัก
@@ -46,7 +46,7 @@ axs[0, 2].set_xlabel("Value", fontsize=8)
 axs[0, 2].set_ylabel("Category", fontsize=8)
 
 # -------------------------------------------------------------
-# Row 2, Col 1: Sports Match Data
+# Row 2, Col 1: Sports Match Data (มีเส้นกริดอันเดียว)
 # -------------------------------------------------------------
 minutes = np.array([100, 200, 300, 400, 500])
 energy = np.array([10, 20, 30, 40, 50])
@@ -54,6 +54,7 @@ axs[1, 0].plot(minutes, energy, color='steelblue', label='Energy')
 axs[1, 0].set_title("Sports Match Data", fontsize=10)
 axs[1, 0].set_xlabel("Minutes", fontsize=8)
 axs[1, 0].set_ylabel("Energy", fontsize=8)
+axs[1, 0].grid(True, linestyle='--', color='lightgray', alpha=0.7)  # ใส่เส้นกริดตรงนี้ที่เดียว
 
 # -------------------------------------------------------------
 # Row 2, Col 2: Two Line Chart
@@ -123,9 +124,7 @@ axs[2, 2].set_xlabel("Fruit", fontsize=8)
 axs[2, 2].set_ylabel("Share (%)", fontsize=8)
 axs[2, 2].legend(pie_labels, title="Fruit Stuffs", loc="upper right", bbox_to_anchor=(1.35, 1.0), fontsize=7, title_fontsize=8)
 
-# -------------------------------------------------------------
-# จัดระเบียบ Spacing ไม่ให้ตัวอักษรชนกัน
-# -------------------------------------------------------------
+# ปรับ Layout ไม่ให้ซ้อนทับกัน
 plt.subplots_adjust(
     left=0.06,
     right=0.92,
